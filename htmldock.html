@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <script src="jquery2.min.js"></script>
+      <style>
+        body{
+          background: #333;
+          height: 100px;
+          padding: 0;
+          margin: 0;
+          overflow: hidden;
+          font-family: arial;
+          font-size: 10px;
+        }
+        .wmBtn{
+          display: table-cell;
+          color: #EEE;
+          text-align: center;
+          padding: 0 2px;
+        }
+        #wmBtns {
+          display: table;
+          width: 100%;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="wmBtns">
+        
+      </div>
+      <script>
+        function wnckWindows(wins) {
+          var ids = wins.map(function(win) { return win.xid });
+          $('.wmBtn').each(function() { 
+            if (ids.indexOf($(this).attr('xid')) === -1) {
+              $(this).remove();
+            }
+          });
+          $.each(wins, function() {
+            if (!$('.wmBtn[xid="'+this.xid+'"]').length) {
+              $('#wmBtns').append('<div class="wmBtn" xid="'+this.xid+'">'+this.app_name+'</div>');
+            }
+          });
+        }
+        //wnckWindows([{"xid": 75497473, "name": "An Introduction to Python\u00a0Lists - Google Chrome", "app_name": "An Introduction to Python\u00a0Lists - Google Chrome"}, {"xid": 85983284, "name": "NetBeans IDE 8.0.2", "app_name": "NetBeans IDE 8.0.2"}, {"xid": 56623110, "name": "alexandre@alexandre-HP-Pavilion-dm1-Notebook-PC: ~/dev/py/htmldock", "app_name": "Terminal"}, {"xid": 52429370, "name": "htmldock", "app_name": "nautilus"}]);
+        $(function () {
+          $('#wmBtns').on('click', '.wmBtn', function() {
+            document.title = "null";
+            document.title = $(this).attr('xid');
+            //$(this).css('background', '#999');
+          });
+        });
+      </script>
+    </body>
+</html>
