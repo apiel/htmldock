@@ -2,6 +2,7 @@ import os
 import gtk 
 import wnck
 import json
+import time
 import webkit
 
 view = webkit.WebView() 
@@ -27,8 +28,6 @@ view.open('file://'+os.path.dirname(os.path.abspath(__file__)) + '/htmldock.html
 screenW = wnck.screen_get_default();
 screenW.force_update()
 
-#now = gtk.gdk.x11_get_server_time(gtk.gdk.get_default_root_window())
-#w.activate(now)
 def get_window_by_xid(xid):
   windows = screenW.get_windows()
   for window in windows:
@@ -37,7 +36,9 @@ def get_window_by_xid(xid):
   return False
 
 def title_changed(widget, frame, title):
-  if title != 'null': 
+  if title == 'getWindowslist':
+    send_windows()
+  elif title != 'null':
     #print "title changer: " + title
     window = get_window_by_xid(title)
     if window:
@@ -61,6 +62,9 @@ def window_opened(widget, frame):
 view.connect('title-changed', title_changed)
 screenW.connect('window-opened', window_opened)
 screenW.connect('window-closed', window_opened)
-#send_windows() # actually we dont need cause we open a window
 
 gtk.main()
+
+#time.sleep(1)
+print "test test"
+send_windows() # actually we dont need cause we open a window, but sometime the javascript is not ready
