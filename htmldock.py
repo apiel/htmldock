@@ -53,8 +53,9 @@ def send_windows():
   list = []
   for window in windows:
     if window.get_window_type().value_name == 'WNCK_WINDOW_NORMAL':
+      #print 'yoyoyoyo: ' + window.get_application().get_icon_name()
       list.append({ 'name': window.get_name(), 
-                           'app_name': window.get_application ().get_name(),
+                           'app_name': window.get_application().get_name(),
                            'xid' : window.get_xid() })
   view.execute_script('wnckWindows('+json.dumps(list)+');')
 
